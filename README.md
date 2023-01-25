@@ -1,18 +1,3 @@
-# RainbowKit-NextJS 🏗
-🌈 Next JS App Template with RainbowKit Web3.
- 
- 
- 
-  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-# rainbow-magic-example
+# rainbow-magic-example 🏗
+
+🌈 Next JS App Template with RainbowKit Web3 integrated with magic auth.
