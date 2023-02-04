@@ -14,7 +14,7 @@ export const rainbowMagicConnector = ({ chains }: { chains: any }) => ({
         // Get the API key from the .env file
         apiKey: process.env.NEXT_PUBLIC_MAGIC_API_KEY as string,
         oauthOptions: {
-          providers: ["google", "facebook", "twitter"],
+          providers: ["google", "facebook", "twitter", "discord"],
         },
         isDarkMode: true,
         magicSdkConfiguration: {
