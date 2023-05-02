@@ -1,29 +1,30 @@
 // Import the MagicAuthConnector from the wagmi-magic-connector package
 import { MagicAuthConnector } from "@everipedia/wagmi-magic-connector";
+import { Chain } from "wagmi";
 
 // Define the rainbowMagicConnector function that will be used to create the Magic connector
-export const rainbowMagicConnector = ({ chains }: { chains: any }) => ({
-  id: "magic",
-  name: "Magic",
-  iconUrl: "https://svgshare.com/i/pXA.svg",
-  iconBackground: "white",
-  createConnector: () => ({
-    connector: new MagicAuthConnector({
-      chains,
-      options: {
-        // Get the API key from the .env file
-        apiKey: process.env.NEXT_PUBLIC_MAGIC_API_KEY as string,
-        oauthOptions: {
-          providers: ["google", "facebook", "twitter", "discord"],
-        },
-        isDarkMode: true,
-        magicSdkConfiguration: {
-          network: {
-            rpcUrl: "https://eth.public-rpc.com",
-            chainId: 1,
-          },
-        },
-      },
-    }),
-  }),
+export const rainbowMagicConnector = ({ chains }: { chains: Chain[] }) => ({
+	id: "magic",
+	name: "Magic",
+	iconUrl: "https://svgshare.com/i/pXA.svg",
+	iconBackground: "white",
+	createConnector: () => ({
+		connector: new MagicAuthConnector({
+			chains,
+			options: {
+				// Get the API key from the .env file
+				apiKey: process.env.NEXT_PUBLIC_MAGIC_API_KEY as string,
+				oauthOptions: {
+					providers: ["google", "facebook", "twitter", "discord"],
+				},
+				isDarkMode: true,
+				magicSdkConfiguration: {
+					network: {
+						rpcUrl: "https://eth.public-rpc.com",
+						chainId: 1,
+					},
+				},
+			},
+		}),
+	}),
 });
