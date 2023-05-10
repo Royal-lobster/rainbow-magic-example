@@ -1,15 +1,13 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import "../styles/globals.css";
 
-import "@rainbow-me/rainbowkit/styles.css";
 import {
 	RainbowKitProvider,
-	darkTheme,
 	connectorsForWallets,
+	darkTheme,
+	getDefaultWallets
 } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
-import { rainbowMagicConnector } from "../lib/RainbowMagicConnector";
+import "@rainbow-me/rainbowkit/styles.css";
 import {
 	arbitrum,
 	goerli,
@@ -18,8 +16,11 @@ import {
 	optimism,
 	polygon,
 } from "@wagmi/chains";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
+import { rainbowMagicConnector } from "../lib/RainbowMagicConnector";
 
-const { chains, provider } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, goerli, polygon, optimism, arbitrum, hardhat],
 	[
 		// alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
@@ -32,17 +33,22 @@ const connectors = connectorsForWallets([
 		groupName: "Recommended",
 		wallets: [rainbowMagicConnector({ chains })],
 	},
+	...getDefaultWallets({
+		chains,
+		appName: "Wagmi",
+	}).wallets,
 ]);
 
-const wagmiClient = createClient({
+const wagmiClient = createConfig({
 	autoConnect: false,
 	connectors,
-	provider,
+	publicClient,
+	webSocketPublicClient
 });
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<WagmiConfig client={wagmiClient}>
+		<WagmiConfig config={wagmiClient}>
 			<RainbowKitProvider theme={darkTheme()} chains={chains}>
 				<Component {...pageProps} />
 			</RainbowKitProvider>
