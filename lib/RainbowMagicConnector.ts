@@ -1,5 +1,5 @@
 // Import the MagicAuthConnector from the wagmi-magic-connector package
-import { MagicAuthConnector } from "@everipedia/wagmi-magic-connector";
+import { MagicAuthConnector } from "@magiclabs/wagmi-connector";
 import { Chain } from "wagmi";
 
 // Define the rainbowMagicConnector function that will be used to create the Magic connector
